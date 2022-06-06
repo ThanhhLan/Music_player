@@ -5,7 +5,7 @@ const cd = $(".cd");
 const PLAYER_STORAGE_KEY = 'F8_PLAYER';
 
 const heading = $('header h2');
-const cdThumb = $('.cd-thumb');
+const cdThumb = $('.cd-thumb'); //ảnh
 const audio = $('#audio');
 const playBtn = $('.btn-toggle-play');
 const player = $('.player');
@@ -107,7 +107,7 @@ const app = {
             }
         ],{
             duration:10000, //quay trong 10 giây
-            interations: Infinity //lặp lại vô hạn
+            iterations: Infinity //lặp lại vô hạn
         })
         cdThumbAnimate.pause();
 
@@ -129,33 +129,31 @@ const app = {
            }
         }
 
-        // Khi song được play
+        // Khi bài hát được play
         audio.onplay = function(){
             _this.isPlaying = true;
             player.classList.add("playing");
             cdThumbAnimate.play()
         }
 
-        // khi song bị pause
+        // khi bài hát bị pause
         audio.onpause = function(){
             _this.isPlaying = false;
             player.classList.remove("playing");
             cdThumbAnimate.pause();
         }
 
-        // Khi tiến độ bài hát thay đổi
+        // Khi tiến độ bài hát thay đổi, duration: thời lượng bài hát
         audio.ontimeupdate = function(){
             if(audio.duration){
                 const progressPercentage = Math.floor(audio.currentTime / audio.duration *100);
                 progress.value = progressPercentage
             }
-            console.log();
         }
 
 
         // Xử lý khi tour bài hát
         progress.onchange = function(e){
-            console.log(e.target.value);
             const seekTime = audio.duration /100 * e.target.value;
             audio.currentTime = seekTime;
         }
